@@ -1,0 +1,4 @@
+release.md
+*.exe
+*.syso
+startup_log.txt

@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [amd64, 386]
+        include:
+          - arch: amd64
+            arch_name: x64
+          - arch: 386
+            arch_name: x86
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.22.4'
+
+    - name: Install dependencies
+      run: |
+        go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest
+
+    - name: Generate resources
+      run: go generate ./...
+
+    - name: Build
+      env:
+        GOOS: windows
+        GOARCH: ${{ matrix.arch }}
+      run: |
+        go build -ldflags="-H=windowsgui" -o DJI_RC_Nx_Translator_${{ matrix.arch_name }}.exe
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: DJI_RC_Nx_Translator_${{ matrix.arch_name }}
+        path: DJI_RC_Nx_Translator_${{ matrix.arch_name }}.exe
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download x64 artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: DJI_RC_Nx_Translator_x64
+        path: artifacts
+
+    - name: Download x86 artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: DJI_RC_Nx_Translator_x86
+        path: artifacts
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          artifacts/DJI_RC_Nx_Translator_x64.exe
+          artifacts/DJI_RC_Nx_Translator_x86.exe
