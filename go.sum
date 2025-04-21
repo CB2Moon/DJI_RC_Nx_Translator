@@ -1,3 +1,5 @@
+github.com/CB2Moon/vgamepad-go v0.1.1 h1:om1fzRIoGpEY2Zp8q6JP7DiAdX3HszAfYH3K+Db3wI4=
+github.com/CB2Moon/vgamepad-go v0.1.1/go.mod h1:Sru/f7Q+BgguBwuR9xA+wkpb4wTSBwW6z/l+nH+FxCE=
 github.com/akavel/rsrc v0.10.2 h1:Zxm8V5eI1hW4gGaYsJQUhxpjkENuG91ki8B4zCrvEsw=
 github.com/akavel/rsrc v0.10.2/go.mod h1:uLoCtb9J+EyAqh+26kdrTgmzRBFPGOolLWKpdxkKq+c=
 github.com/creack/goselect v0.1.2 h1:2DNy14+JPjRBgPzAd1thbQp4BSIihxcBf0IXhQXDRa0=
