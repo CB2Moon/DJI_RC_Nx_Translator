@@ -41,7 +41,7 @@ jobs:
         go build -ldflags="-H=windowsgui" -o DJI_RC_Nx_Translator_${{ matrix.arch_name }}.exe
 
     - name: Upload build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: DJI_RC_Nx_Translator_${{ matrix.arch_name }}
         path: DJI_RC_Nx_Translator_${{ matrix.arch_name }}.exe
@@ -53,13 +53,13 @@ jobs:
 
     steps:
     - name: Download x64 artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: DJI_RC_Nx_Translator_x64
         path: artifacts
 
     - name: Download x86 artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: DJI_RC_Nx_Translator_x86
         path: artifacts
